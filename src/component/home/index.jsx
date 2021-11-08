@@ -2,8 +2,8 @@ import { BannerSlider } from './banner-slider';
 
 export const Home = () => {
   return (
-    <section>
+    <main className='home-global-wrap'>
       <BannerSlider />
-    </section>
+    </main>
   );
 };

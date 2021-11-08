@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
-// import Swiper core and required modules
 import SwiperCore from 'swiper';
-// Import Swiper styles
 import 'swiper/swiper.scss';
-// import 'swiper/css/navigation';
-// import 'swiper/css/thumbs';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper/swiper.esm';
 
-// install Swiper modules
 SwiperCore.use([Navigation, Thumbs]);
 
 export const BannerSlider = () => {
@@ -25,40 +19,69 @@ export const BannerSlider = () => {
               '--swiper-pagination-color': '#fff',
             }}
             loop={true}
-            spaceBetween={10}
             navigation={true}
             thumbs={{ swiper: thumbsSwiper }}
             className='mySwiper2'
           >
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-1.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-1.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-2.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-2.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-3.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-3.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-4.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-4.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-5.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-5.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-6.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-6.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-7.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-7.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-8.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-8.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-9.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-9.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-10.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-10.jpg'
+              />
             </SwiperSlide>
           </Swiper>
           <Swiper
@@ -71,31 +94,58 @@ export const BannerSlider = () => {
             className='mySwiper'
           >
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-1.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-1.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-2.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-2.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-3.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-3.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-4.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-4.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-5.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-5.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-6.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-6.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-7.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-7.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-8.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-8.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <img src='https://swiperjs.com/demos/images/nature-9.jpg' />
+              <img
+                alt='slider'
+                src='https://swiperjs.com/demos/images/nature-9.jpg'
+              />
             </SwiperSlide>
             <SwiperSlide>
               <h2>Iphone 12 pro max</h2>

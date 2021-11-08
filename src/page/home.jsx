@@ -1,10 +1,10 @@
-import { Footer, Header } from '../component';
+import { Footer, Header, Home } from '../component';
 
 const HomePage = () => {
   return (
     <>
       <Header />
-      <main className='main-global-wrap'></main>
+      <Home />
       <Footer />
     </>
   );
