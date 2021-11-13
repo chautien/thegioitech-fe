@@ -20,10 +20,12 @@
   --color-tertiary: #fd475a;
   --color-one: #333333;
   --color-background: #f4f4f4;
+  --color-danger: #FF2626;
+  --color-gray: #FAF3F3;
 
   // Font size
   // -- Text --
-  --font-size-text-ss: 1.1rem;
+  --font-size-text-xs: 1.1rem;
   --font-size-text-s: 1.2rem;
   --font-size-text-sm: 1.3rem;
   --font-size-text-m: 1.4rem;
@@ -34,24 +36,22 @@
   --font-size-heading-m: 2.5rem;
 
   // Padding
-  --padding-one: .5rem;
-  --padding-two: 1rem;
-  --padding-three: 1.2rem;
-  --padding-four: 1.4rem;
-  --padding-five: 1.5rem;
-  --padding-six: 1.8rem;
-  --padding-sevent: 2rem;
-  --padding-eight: 3rem;
+  --padding-xs: .5rem;
+  --padding-s: 1rem;
+  --padding-sm: 1.2rem;
+  --padding-m: 1.4rem;
+  --padding-l: 1.8rem;
+  --padding-xl: 2rem;
+  --padding-xxl: 3rem;
 
   // Margin
-  --margin-one: .5rem;
-  --margin-two: 1.4;
-  --margin-three: 1.8rem;
-  --margin-four: 2rem;
-  --margin-five: 2.4rem;
-  --margin-six: 2.8rem;
-  --margin-six: 3rem;
-  --margin-six: 3.4rem;
+  --margin-xs: 1.4;
+  --margin-s: 1.8rem;
+  --margin-sm: 2rem;
+  --margin-m: 2.4rem;
+  --margin-l: 2.8rem;
+  --margin-xl: 3rem;
+  --margin-xxl: 3.4rem;
 
   // Border radius
   --border-radius-s: .6rem;
@@ -61,4 +61,5 @@
 
   // Sizing
   --global-wrap: 120rem;
+
 }

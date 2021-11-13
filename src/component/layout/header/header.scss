@@ -3,8 +3,23 @@
     margin-bottom: .6rem;
   }
 
+  &-top-wrap {
+    background-color: var(--color-primary);
+    color: #fff;
+    font-size: var(--font-size-text-sm);
+    padding: .5rem;
+
+  }
+
+  &-top {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.6rem;
+  }
+
   &-wrap {
-    padding: var(--padding-one) 0;
+    padding: var(--padding-xs) 0;
     display: flex;
     align-items: center;
     height: 9rem;
@@ -38,7 +53,7 @@
     }
 
     &-input {
-      padding: var(--padding-four) var(--padding-three);
+      padding: var(--padding-m) var(--padding-sm);
 
       &::placeholder {
         font-weight: 700;
@@ -187,6 +202,8 @@
     border-radius: var(--border-radius-m);
     gap: 2.4rem;
     padding-bottom: .2rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    justify-content: space-between;
   }
 
   &-item {

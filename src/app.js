@@ -7,20 +7,25 @@ import LoginPage from './page/login';
 import OrderCheckPage from './page/order-check';
 import RegisterPage from './page/register';
 import ErrorPage from './page/error';
+import SwiperCore, { Autoplay } from 'swiper';
+import { Navigation, Thumbs } from 'swiper/swiper.esm';
+import 'swiper/swiper.scss';
 import './style/index.scss';
+
+SwiperCore.use([Navigation, Thumbs, Autoplay]);
 
 const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/category/:slug" component={ContentListPage} />
-        <Route path="/detail/:slug" component={ContentDetailPage} />
-        <Route path="/cart" component={CartPage} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/order-check" component={OrderCheckPage} />
-        <Route path="*" component={ErrorPage} />
+        <Route exact path='/' component={HomePage} />
+        <Route path='/category/:slug' component={ContentListPage} />
+        <Route path='/:slug' component={ContentDetailPage} />
+        <Route path='/cart' component={CartPage} />
+        <Route path='/login' component={LoginPage} />
+        <Route path='/register' component={RegisterPage} />
+        <Route path='/order-check' component={OrderCheckPage} />
+        <Route path='*' component={ErrorPage} />
       </Switch>
     </Router>
   );

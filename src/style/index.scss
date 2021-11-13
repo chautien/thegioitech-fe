@@ -1,6 +1,7 @@
 // Reset style
 @import './variable';
 @import './reset';
+@import './common/card.scss';
 
 // Fonts
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800&display=swap');
@@ -27,7 +28,9 @@
 // Default style
 body {
   font-family: var(--font-family);
-  background-color: var(--color-background);
+  background-color: ghostwhite;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 input,
@@ -65,6 +68,16 @@ textarea,
   text-overflow: ellipsis;
 }
 
+.rounded-circle {
+  border-radius: var(--border-radius-circle);
+}
+
+.grid {
+  display: grid;
+}
+
+// Animation
+
 @keyframes fadeFromTop {
   from {
     opacity: 0;
@@ -74,5 +87,17 @@ textarea,
   to {
     opacity: 1;
     transform: translate(-50%, 0);
+  }
+}
+
+@keyframes bounding {
+  from {
+    transform: translateY(.8rem);
+    opacity: 0.7;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

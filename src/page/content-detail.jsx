@@ -1,10 +1,10 @@
-import { Footer, Header } from '../component';
+import { ContentDetail, Footer, Header } from '../component';
 
 const ContentDetailPage = () => {
   return (
     <>
       <Header />
-      <main className='main-global-wrap'></main>
+      <ContentDetail />
       <Footer />
     </>
   );
