@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HeroSlider } from './hero-slider';
 import { FlashSale } from './flash-sale';
-import './home.scss';
 import { Mock_products } from '../../constant';
 import { BoxProduct } from '../common/box-product';
+import './home.scss';
+import { query } from '../../access/api';
 
 const Mock_Slider = [
   {
@@ -36,20 +37,48 @@ const Mock_Slider = [
 export const Home = () => {
   // eslint-disable-next-line no-unused-vars
   const [products, setProducts] = useState(() => [...Mock_products]);
+  const [phone, setPhone] = useState([]);
+  console.log('🚀 ~ file: index.jsx ~ line 41 ~ Home ~ phone', phone);
+  const [loading, setLoading] = useState({ phone: false });
   const [sliders] = useState([...Mock_Slider]);
+
+  useEffect(() => {
+    setLoading((state) => ({ ...state, phone: true }));
+    let isCancelled = false;
+    (async () => {
+      try {
+        const {
+          data: { products },
+        } = await query().product.getAll('product');
+        if (isCancelled === false) {
+          setLoading((state) => ({ ...state, phone: false }));
+          setPhone(products);
+        }
+      } catch (error) {
+        if (isCancelled === false) {
+          console.log('🚀 ~ file: index.jsx ~ line 49 ~ error', error);
+          setLoading((state) => ({ ...state, phone: false }));
+        }
+      }
+    })();
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
   return (
     <main className='home-global-wrap'>
       <HeroSlider sliders={sliders} />
       <FlashSale />
       <BoxProduct
         name='Điện thoại nổi bật nhất'
-        products={products}
-        loading={false}
+        products={phone}
+        loading={loading.phone}
         numberOfItem={10}
         className='trending'
         to='category/dien-thoai'
       />
-      <BoxProduct
+      {/* <BoxProduct
         name='Laptop'
         products={products}
         loading={false}
@@ -64,7 +93,7 @@ export const Home = () => {
         numberOfItem={5}
         className='trending'
         to='category/may-tinh-bang'
-      />
+      /> */}
     </main>
   );
 };

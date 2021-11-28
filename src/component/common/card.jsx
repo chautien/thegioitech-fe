@@ -9,7 +9,7 @@ export const Card = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { slug, _id, thumbnail, name, option, discount } = data;
   const history = useHistory();
-  const cardUrl = `${_id}`;
+  const param = [slug, _id].join('-');
 
   const handleAddToCard = () => {
     console.log('Add to card!');
@@ -24,15 +24,19 @@ export const Card = (props) => {
       {loading && <span>Loading ...</span>}
       {!loading && data && (
         <>
-          {discount && <span className='card-label'>Giảm {discount}%</span>}
+          {discount > 0 && <span className='card-label'>Giảm {discount}%</span>}
           <div className='card-heading'>
-            <Link to={cardUrl} className='card-heading-link'>
-              <img src={thumbnail} alt={name} className='card-heading-image' />
+            <Link to={param} className='card-heading-link'>
+              <img
+                src={thumbnail.location}
+                alt={name}
+                className='card-heading-image'
+              />
             </Link>
           </div>
           <div className='card-content'>
             <h5 className='card-content-heading'>
-              <Link to={cardUrl} className='card-content-heading-link'>
+              <Link to={param} className='card-content-heading-link'>
                 {name}
               </Link>
             </h5>
@@ -68,10 +72,10 @@ export const Card = (props) => {
 };
 
 Card.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.object,
   path: PropTypes.string,
 };
 Card.defaultProps = {
-  data: [],
+  data: {},
   path: '',
 };
