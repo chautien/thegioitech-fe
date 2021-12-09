@@ -16,11 +16,11 @@ SwiperCore.use([Navigation, Thumbs, Autoplay]);
 
 const App = () => {
   return (
-    <Router>
+    <Router> 
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/category/:slug' component={ContentListPage} />
-        <Route path='/:slug' component={ContentDetailPage} />
+        <Route path='/product/:slug' component={ContentDetailPage} />
         <Route path='/cart' component={CartPage} />
         <Route path='/login' component={LoginPage} />
         <Route path='/register' component={RegisterPage} />

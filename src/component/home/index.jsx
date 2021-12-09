@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { HeroSlider } from './hero-slider';
 import { FlashSale } from './flash-sale';
-import { Mock_products } from '../../constant';
-import { BoxProduct } from '../common/box-product';
 import './home.scss';
-import { query } from '../../access/api';
+import { BoxProduct } from '../common/box-product';
+import axios from 'axios';
 
 const Mock_Slider = [
   {
@@ -36,49 +35,33 @@ const Mock_Slider = [
 
 export const Home = () => {
   // eslint-disable-next-line no-unused-vars
-  const [products, setProducts] = useState(() => [...Mock_products]);
-  const [phone, setPhone] = useState([]);
-  console.log('🚀 ~ file: index.jsx ~ line 41 ~ Home ~ phone', phone);
-  const [loading, setLoading] = useState({ phone: false });
+  const [products, setProducts] = useState();
   const [sliders] = useState([...Mock_Slider]);
+  const getProducts = () => {
+    axios
+      .get(`https://thegioitech-be.herokuapp.com/api/product`)
+      .then((res) => {
+        const myProducts = res.data.products;
+        setProducts(myProducts);
+      })
+      .catch((err) => {});
+  };
 
-  useEffect(() => {
-    setLoading((state) => ({ ...state, phone: true }));
-    let isCancelled = false;
-    (async () => {
-      try {
-        const {
-          data: { products },
-        } = await query().product.getAll('product');
-        if (isCancelled === false) {
-          setLoading((state) => ({ ...state, phone: false }));
-          setPhone(products);
-        }
-      } catch (error) {
-        if (isCancelled === false) {
-          console.log('🚀 ~ file: index.jsx ~ line 49 ~ error', error);
-          setLoading((state) => ({ ...state, phone: false }));
-        }
-      }
-    })();
-    return () => {
-      isCancelled = true;
-    };
-  }, []);
-
+  getProducts();
   return (
     <main className='home-global-wrap'>
       <HeroSlider sliders={sliders} />
       <FlashSale />
       <BoxProduct
         name='Điện thoại nổi bật nhất'
-        products={phone}
-        loading={loading.phone}
+        products={products}
+        loading={false}
         numberOfItem={10}
         className='trending'
         to='category/dien-thoai'
       />
-      {/* <BoxProduct
+
+      <BoxProduct
         name='Laptop'
         products={products}
         loading={false}
@@ -93,7 +76,7 @@ export const Home = () => {
         numberOfItem={5}
         className='trending'
         to='category/may-tinh-bang'
-      /> */}
+      />
     </main>
   );
 };

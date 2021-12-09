@@ -28,11 +28,7 @@ export const ProductSlider = (props) => {
           >
             {images?.map((image, index) => (
               <SwiperSlide key={index} className='slider-top-box'>
-                <img
-                  src={image.location}
-                  alt={index}
-                  className='slider-top-image'
-                />
+                <img src={image.location} alt={index} className='slider-top-image' />
               </SwiperSlide>
             ))}
             <button

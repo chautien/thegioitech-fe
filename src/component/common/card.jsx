@@ -7,9 +7,9 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 export const Card = (props) => {
   const { data, loading } = props;
   // eslint-disable-next-line no-unused-vars
-  const { slug, _id, thumbnail, name, option, discount } = data;
+  const { slug, _id, product_image, name, option, discount } = data;
   const history = useHistory();
-  const param = [slug, _id].join('-');
+  const cardUrl = `/product/${_id}`;
 
   const handleAddToCard = () => {
     console.log('Add to card!');
@@ -24,19 +24,15 @@ export const Card = (props) => {
       {loading && <span>Loading ...</span>}
       {!loading && data && (
         <>
-          {discount > 0 && <span className='card-label'>Giảm {discount}%</span>}
+          {discount && <span className='card-label'>Giảm {discount}%</span>}
           <div className='card-heading'>
-            <Link to={param} className='card-heading-link'>
-              <img
-                src={thumbnail.location}
-                alt={name}
-                className='card-heading-image'
-              />
+            <Link to={cardUrl} className='card-heading-link'>
+              <img src={product_image[0].location} alt={name} className='card-heading-image' />
             </Link>
           </div>
           <div className='card-content'>
             <h5 className='card-content-heading'>
-              <Link to={param} className='card-content-heading-link'>
+              <Link to={cardUrl} className='card-content-heading-link'>
                 {name}
               </Link>
             </h5>
@@ -69,13 +65,4 @@ export const Card = (props) => {
       )}
     </article>
   );
-};
-
-Card.propTypes = {
-  data: PropTypes.object,
-  path: PropTypes.string,
-};
-Card.defaultProps = {
-  data: {},
-  path: '',
 };

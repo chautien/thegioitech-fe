@@ -2,7 +2,7 @@ import { faHandshake } from '@fortawesome/free-regular-svg-icons';
 import {
   faClock,
   faFire,
-  faFlash,
+  faFlask,
   faGamepad,
   faHeadphones,
   faHome,
@@ -101,7 +101,7 @@ export const Navbar = () => {
         />
         <NavItem
           path={Path.concat(Slugs[12])}
-          icon={<FontAwesomeIcon icon={faFlash} />}
+          icon={<FontAwesomeIcon icon={faFlask} />}
           name='Flash sale'
         />
         <NavItem

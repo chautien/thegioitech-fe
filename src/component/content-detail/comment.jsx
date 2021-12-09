@@ -1,8 +1,30 @@
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 export const Comment = (props) => {
-  const { product_id, name } = props;
+  const { productId, name } = props;
+  const [comment, setComment] = useState([]);
+
+  useEffect(() => {
+    let isCancelling = false;
+    (async () => {
+      try {
+        const { data: apiComment } = await axios.get(
+          'http://localhost:3080/api/comment/' + productId
+        );
+
+        if (isCancelling === false) {
+          setComment(apiComment.productComment);
+        }
+      } catch (error) {}
+    })();
+
+    return () => {
+      isCancelling = true;
+    };
+  }, [productId]);
 
   return (
     <section className='comment-wrap'>
@@ -49,72 +71,30 @@ export const Comment = (props) => {
           </div>
         </form>
         <div className='comment-list'>
-          <div className='comment-list-item'>
-            <div className='comment-item-media'>
-              <img
-                src={'https://hoanghamobile.com/Content/web/img/no-avt.png'}
-                alt='No avatar'
-                className='rounded-circle comment-item-img'
-              />
-            </div>
-            <div className='comment-item-content'>
-              <div className='comment-item-detail'>
-                <div className='comment-detail-heading'>
-                  <p className='comment-detail-heading-text'>Chau Tien</p>
-                  <time className='comment-detail-time'>15 phút trước</time>
+          {comment.length > 0 ? (
+            comment.map((item) => (
+              <div className='comment-list-item'>
+                <div className='comment-item-media'>
+                  <img
+                    src={'https://hoanghamobile.com/Content/web/img/no-avt.png'}
+                    alt='No avatar'
+                    className='rounded-circle comment-item-img'
+                  />
                 </div>
-                <p className='comment-detail-text'>
-                  Mình thấy có mấy chương trình Km, KH được chọn 1 hay được
-                  hưởng tất cả? Mình có đặt đơn online rồi mà chưa thấy ai liên
-                  hệ lại.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className='comment-list-item'>
-            <div className='comment-item-media'>
-              <img
-                src={'https://hoanghamobile.com/Content/web/img/no-avt.png'}
-                alt='No avatar'
-                className='rounded-circle comment-item-img'
-              />
-            </div>
-            <div className='comment-item-content'>
-              <div className='comment-item-detail'>
-                <div className='comment-detail-heading'>
-                  <p className='comment-detail-heading-text'>Chau Tien</p>
-                  <time className='comment-detail-time'>15 phút trước</time>
+                <div className='comment-item-content'>
+                  <div className='comment-item-detail'>
+                    <div className='comment-detail-heading'>
+                      <p className='comment-detail-heading-text'>Chau Tien</p>
+                      <time className='comment-detail-time'>15 phút trước</time>
+                    </div>
+                    <p className='comment-detail-text'>{item.content}</p>
+                  </div>
                 </div>
-                <p className='comment-detail-text'>
-                  Mình thấy có mấy chương trình Km, KH được chọn 1 hay được
-                  hưởng tất cả? Mình có đặt đơn online rồi mà chưa thấy ai liên
-                  hệ lại.
-                </p>
               </div>
-            </div>
-          </div>
-          <div className='comment-list-item'>
-            <div className='comment-item-media'>
-              <img
-                src={'https://hoanghamobile.com/Content/web/img/no-avt.png'}
-                alt='No avatar'
-                className='rounded-circle comment-item-img'
-              />
-            </div>
-            <div className='comment-item-content'>
-              <div className='comment-item-detail'>
-                <div className='comment-detail-heading'>
-                  <p className='comment-detail-heading-text'>Chau Tien</p>
-                  <time className='comment-detail-time'>15 phút trước</time>
-                </div>
-                <p className='comment-detail-text'>
-                  Mình thấy có mấy chương trình Km, KH được chọn 1 hay được
-                  hưởng tất cả? Mình có đặt đơn online rồi mà chưa thấy ai liên
-                  hệ lại.
-                </p>
-              </div>
-            </div>
-          </div>
+            ))
+          ) : (
+            <span>Chưa có bình luận!</span>
+          )}
         </div>
       </div>
     </section>

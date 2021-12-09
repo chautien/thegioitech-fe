@@ -1,8 +1,15 @@
 import { faCartPlus, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { formatCurrency, discountPrice } from '../../util';
+import { Link } from 'react-router-dom';
+import { discountPrice } from '../../util';
+import { useDispatch } from 'react-redux';
+import { cartAction } from '../../redux/cartSlice';
+import swal from 'sweetalert';
 
 export const ProductBox = (props) => {
+
+  const dispatch = useDispatch()
+
   const { product } = props;
   const {
     _id,
@@ -16,16 +23,21 @@ export const ProductBox = (props) => {
     specification,
   } = product;
 
+  const addCart = () => {
+    dispatch(cartAction.addCart(product))
+    swal('thêm vào giỏ hàng thành công')
+  }
+
   return (
     <section className='product-box'>
       <div className='heading'>
         <div className='heading-price'>
           <h5 className='heading-price-new'>
-            {formatCurrency(option[0].price)}
+            {discountPrice(option[0].price, discount)}
           </h5>
           <h5 className='heading-price-old'>
             Giá niêm yết:{' '}
-            <strike>{discountPrice(option[0].price, discount)}</strike>
+            <strike>{discountPrice(option[0].price)}</strike>
           </h5>
         </div>
         <div className='heading-freeship'>
@@ -58,10 +70,12 @@ export const ProductBox = (props) => {
         </div>
         <div className='heading-action'>
           <button className='btn heading-action-buy'>
-            <span>Mua ngay</span>
-            <span>Giao hàng tận nhà (COD) hoặc nhận tại cửa hàng</span>
+            <Link to="/cart" onClick={() => dispatch(cartAction.addCart(product))}>
+              <span>Mua ngay</span>
+              <span>Giao hàng tận nhà (COD) hoặc nhận tại cửa hàng</span>
+            </Link>
           </button>
-          <button className='btn heading-action-add'>
+          <button className='btn heading-action-add' onClick={() => addCart()}>
             <FontAwesomeIcon icon={faCartPlus} />
           </button>
         </div>

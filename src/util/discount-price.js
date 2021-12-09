@@ -1,4 +1,4 @@
 import { formatCurrency } from '.';
 
-export const discountPrice = (price, discount = 0) =>
-  price && formatCurrency(price * (1 - discount / 100));
+export const discountPrice = (price, discount = []) =>
+  price && formatCurrency(price - ( price * (discount / 100)));

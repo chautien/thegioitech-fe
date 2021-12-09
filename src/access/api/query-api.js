@@ -4,7 +4,7 @@ export const query = () => ({
   product: {
     getAll: () => axiosClient.get('/product'),
     getFilter: (filter) =>
-      filter === undefined ? null : axiosClient.get('/product' + filter),
+      filter === undefined ? null : axiosClient.get('/product/filter' + filter),
     getOne: (id) =>
       id === undefined ? null : axiosClient.get('/product' + id),
   },

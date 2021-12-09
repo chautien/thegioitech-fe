@@ -2,8 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruck, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCart } from '../../../redux/cartSlice';
 
 export const Action = () => {
+  const cart = useSelector(selectCart)
   return (
     <section className='header-action-wrap'>
       <section className='header-action'>
@@ -19,7 +22,7 @@ export const Action = () => {
           <Link to='/cart' className='action-cart-link'>
             <span className='fa-layers fa-fw fa-2x'>
               <FontAwesomeIcon icon={faCartShopping} />
-              <span className='fa-layers-counter'>{2}</span>
+              <span className='fa-layers-counter'>{cart.length}</span>
             </span>
           </Link>
         </div>

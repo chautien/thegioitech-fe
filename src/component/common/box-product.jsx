@@ -14,7 +14,7 @@ export const BoxProduct = (props) => {
         </div>
         <section className='box-main'>
           <div className='grid box-main-grid'>
-            {loading === false &&
+            {products &&
               products.length > 0 &&
               products.map((product, index) => {
                 if (index < numberOfItem) {
@@ -23,6 +23,7 @@ export const BoxProduct = (props) => {
                 return null;
               })}
           </div>
+          
         </section>
       </div>
     </section>

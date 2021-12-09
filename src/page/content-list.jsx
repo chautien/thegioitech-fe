@@ -1,9 +1,6 @@
 import { Footer, Header } from '../component';
-import { getQueryString } from '../util';
 
 const ContentListPage = (props) => {
-  console.log(getQueryString(props.location));
-
   return (
     <>
       <Header />
