@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBoxOpen,
   faMobileScreenButton,
-  faUserShield,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const Store = () => {

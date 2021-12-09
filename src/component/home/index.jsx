@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { HeroSlider } from './hero-slider';
-import { FlashSale } from './flash-sale';
-import './home.scss';
-import { BoxProduct } from '../common/box-product';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { BoxProduct } from '../common/box-product';
+import { FlashSale } from './flash-sale';
+import { HeroSlider } from './hero-slider';
+import './home.scss';
 
 const Mock_Slider = [
   {
@@ -34,20 +34,25 @@ const Mock_Slider = [
 ];
 
 export const Home = () => {
-  // eslint-disable-next-line no-unused-vars
   const [products, setProducts] = useState();
   const [sliders] = useState([...Mock_Slider]);
-  const getProducts = () => {
+
+  useEffect(() => {
+    let isCancelling = false;
     axios
       .get(`https://thegioitech-be.herokuapp.com/api/product`)
       .then((res) => {
         const myProducts = res.data.products;
-        setProducts(myProducts);
+        if (isCancelling === false) {
+          setProducts(myProducts);
+        }
       })
       .catch((err) => {});
-  };
+    return () => {
+      isCancelling = true;
+    };
+  }, []);
 
-  getProducts();
   return (
     <main className='home-global-wrap'>
       <HeroSlider sliders={sliders} />

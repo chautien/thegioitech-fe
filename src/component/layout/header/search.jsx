@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { SearchItem } from './search-item';
-import { query } from '../../../access';
 import axios from 'axios';
 
 export const Search = () => {

@@ -42,10 +42,10 @@ export const FlashSale = () => {
               className='slider-container'
             >
               {flashSaleProducts?.map(
-                ({ thumbnail, name, option, discount }) => (
-                  <SwiperSlide className='slider-card'>
+                ({ thumbnail, name, option, discount }, index) => (
+                  <SwiperSlide key={index} className='slider-card'>
                     <div className='slider-card-heading'>
-                      <Link to={'/'} className='slider-card-link'>
+                      <Link to='/' className='slider-card-link'>
                         <img
                           src={thumbnail}
                           alt={slugify(name)}
@@ -55,7 +55,9 @@ export const FlashSale = () => {
                     </div>
                     <div className='slider-card-content'>
                       <h5 className='slider-card-name'>
-                        <Link className='slider-card-content-link'>{name}</Link>
+                        <Link to='/' className='slider-card-content-link'>
+                          {name}
+                        </Link>
                       </h5>
                       <div className='slider-card-price-box'>
                         <span className='slider-card-price new'>

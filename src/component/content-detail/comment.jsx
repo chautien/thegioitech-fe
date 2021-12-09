@@ -2,10 +2,13 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getUserDecode } from '../../redux/authSlice';
 
 export const Comment = (props) => {
   const { productId, name } = props;
   const [comment, setComment] = useState([]);
+  const userInfo = useSelector(getUserDecode);
 
   useEffect(() => {
     let isCancelling = false;
@@ -61,10 +64,21 @@ export const Comment = (props) => {
           </div>
           <div className='comment-form-action'>
             <p className='comment-form-action-text'>
-              * Để gửi bình luận, bạn cần nhập tối thiểu trường họ tên và nội
-              dung
+              <p>
+                * Để gửi bình luận, bạn cần nhập tối thiểu trường họ tên và nội
+                dung
+              </p>
+              {userInfo === null && (
+                <p style={{ color: '#fd475a' }}>
+                  * Bạn cần đăng nhập để bình luận!
+                </p>
+              )}
             </p>
-            <button type='submit' className='btn comment-form-action-btn'>
+            <button
+              type={userInfo === null ? 'button' : 'submit'}
+              className='btn comment-form-action-btn'
+              style={{ cursor: userInfo === null ? 'no-drop' : 'pointer' }}
+            >
               <FontAwesomeIcon icon={faPaperPlane} />
               <span>Gửi bình luận</span>
             </button>
@@ -93,7 +107,7 @@ export const Comment = (props) => {
               </div>
             ))
           ) : (
-            <span>Chưa có bình luận!</span>
+            <p style={{ textAlign: 'center' }}>Chưa có bình luận!</p>
           )}
         </div>
       </div>

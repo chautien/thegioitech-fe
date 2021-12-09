@@ -4,9 +4,12 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCart } from '../../../redux/cartSlice';
+import { getUserDecode } from '../../../redux/authSlice';
 
 export const Action = () => {
-  const cart = useSelector(selectCart)
+  const cart = useSelector(selectCart);
+  const userInfo = useSelector(getUserDecode);
+
   return (
     <section className='header-action-wrap'>
       <section className='header-action'>
@@ -27,7 +30,10 @@ export const Action = () => {
           </Link>
         </div>
         <div className='action-login'>
-          <Link to='/login' className='action-login-link'>
+          <Link
+            to={userInfo !== null ? '/user-info' : '/login'}
+            className='action-login-link'
+          >
             <FontAwesomeIcon icon={faUser} />
           </Link>
         </div>

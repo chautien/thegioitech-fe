@@ -5,7 +5,7 @@ const axiosClient = axios.create({
   timeout: 15000,
 });
 
-axiosClient.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded';
+// axiosClient.defaults.headers.post['Content-Type'] =
+//   'application/x-www-form-urlencoded';
 
 export { axiosClient };

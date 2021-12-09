@@ -23,7 +23,6 @@ const cartSlice = createSlice({
       if (!check) {
         state.cart.push(item);
       }
-      console.log(state.cart);
       cart.setCart(state.cart);
     },
 
@@ -41,6 +40,7 @@ const cartSlice = createSlice({
         ...action.payload,
         quantity: 1,
       };
+      // eslint-disable-next-line array-callback-return
       state.cart.filter((value) => {
         if (value._id === item._id) {
           if (value.quantity - 1 === 0) {
@@ -57,12 +57,19 @@ const cartSlice = createSlice({
         ...action.payload,
         quantity: 1,
       };
+      // eslint-disable-next-line array-callback-return
       state.cart.filter((value) => {
         if (value._id === item._id) {
           return (value.quantity += 1);
         }
       });
       cart.setCart(state.cart);
+    },
+
+    destroyCart: (state, action) => {
+      console.log('remove cart');
+      state.cart = [];
+      cart.destroyCart();
     },
   },
 });

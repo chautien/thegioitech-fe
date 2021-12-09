@@ -106,7 +106,7 @@
 
 .cart-items .item .options {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-top: 20px;
     position: absolute;
     bottom: 0
@@ -262,6 +262,7 @@
     display: block;
     background: transparent linear-gradient(90deg, #009981 0%, #00483d 100%) 0% 0% no-repeat padding-box;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent
 }
 
@@ -391,4 +392,31 @@
 
 .cart-total .next {
     display: none
+}
+
+// Empty cart
+.emptycart {
+    margin: 1rem 0;
+    background-color: #fff;
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: var(--border-radius-m);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+    &-text {
+        color: var(--color-tertiary);
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    &-link {
+        transition: all .15s linear;
+
+        &:hover {
+            text-decoration-color: #000;
+        }
+    }
 }

@@ -1,5 +1,4 @@
 import { Link, useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { discountPrice, formatCurrency } from '../../util';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
@@ -11,11 +10,8 @@ export const Card = (props) => {
   const history = useHistory();
   const cardUrl = `/product/${_id}`;
 
-  const handleAddToCard = () => {
-    console.log('Add to card!');
-  };
+  const handleAddToCard = () => {};
   const handleBuyNow = () => {
-    console.log('Buy now!');
     history.push('/card');
   };
 
@@ -27,7 +23,11 @@ export const Card = (props) => {
           {discount && <span className='card-label'>Giảm {discount}%</span>}
           <div className='card-heading'>
             <Link to={cardUrl} className='card-heading-link'>
-              <img src={product_image[0].location} alt={name} className='card-heading-image' />
+              <img
+                src={product_image[0].location}
+                alt={name}
+                className='card-heading-image'
+              />
             </Link>
           </div>
           <div className='card-content'>

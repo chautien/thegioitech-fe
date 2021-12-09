@@ -9,18 +9,14 @@ import { Store } from './store';
 import { ProductSlider } from './product-slider';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 import './content-detail.scss';
-
 import { ProductSpecs } from './product-specs';
 import { productService } from '../../services';
 
 export const ContentDetail = ({ products }) => {
   const { slug } = useParams();
   const [product, setProduct] = useState();
-  console.log(
-    '🚀 ~ file: index.jsx ~ line 19 ~ ContentDetail ~ product',
-    product
-  );
   const [isArticleExpand, setIsArticleExpand] = useState(false);
+
   useEffect(() => {
     productService.getProductDetail(slug).then((payload) => {
       setProduct(payload.product);
@@ -33,11 +29,7 @@ export const ContentDetail = ({ products }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [product]);
-  // const {
 
-  //   product_image,
-
-  // } = product || {};
   return product ? (
     <main className='content-wrap'>
       <div className='container content'>

@@ -17,7 +17,7 @@ export const query = () => ({
   },
   auth: {
     login: (payload) =>
-      payload === undefined ? null : axiosClient.post('/login', payload),
+      payload === undefined ? null : axiosClient.post('/auth/login', payload),
     register: (payload) =>
       payload === undefined ? null : axiosClient.post('/register', payload),
   },
