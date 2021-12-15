@@ -41,10 +41,9 @@ const LoginPage = () => {
       email: formData.get('email'),
       password: formData.get('password'),
     };
-    const {
-      data: { user },
-    } = await query().auth.login(loginPayload);
-    dispatch(authAction.setUser(user.token));
+    const { data } = await query().auth.login(loginPayload);
+    console.log('🚀 ~ file: login.jsx ~ line 46 ~ handleSubmit ~ user', data);
+    dispatch(authAction.setUser(data.token));
     history.push('/');
   };
 
@@ -114,7 +113,10 @@ const LoginPage = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href='/register' style={{ fontSize: '13px' }}>
+                <Link
+                  href='https://thegioitech-be.herokuapp.com/register'
+                  style={{ fontSize: '13px' }}
+                >
                   Không có tài khoản? Đăng ký
                 </Link>
               </Grid>

@@ -36,7 +36,7 @@ export const Search = () => {
       return;
     }
     const { data: filter } = await axios.get(
-      'http://localhost:3080/api/product/filter/' + productQuery
+      'https://thegioitech-be.herokuapp.com/api/product/search/' + productQuery
     );
     if (filter.length > 0) {
       setFilterData(filter);
