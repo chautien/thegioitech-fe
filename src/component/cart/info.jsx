@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartAction, selectCart } from '../../redux/cartSlice';
-import { orderService } from '../../services';
+import { getUserDecode } from '../../redux/authSlice';
 import { cart } from '../../util/cart';
 import { useHistory } from 'react-router-dom';
 import swal from 'sweetalert';
 import { isEmail } from 'validator';
+import axios from 'axios';
 
 export const Info = () => {
   const [name, setName] = useState('');
@@ -14,6 +15,8 @@ export const Info = () => {
   const [email, setEmail] = useState('');
   const [node, setNode] = useState('');
   const cartSlice = useSelector(selectCart);
+  const user = useSelector(getUserDecode);
+  console.log('🚀 ~ file: info.jsx ~ line 19 ~ Info ~ user', user);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -30,10 +33,7 @@ export const Info = () => {
       swal('Bạn cần điền đúng định dạng số điện thoại');
     } else if (!isEmail(email)) {
       swal('Bạn phải nhập đúng định dạng email');
-    }
-    
-    
-    else {
+    } else {
       const data = {
         name,
         phone,
@@ -43,11 +43,16 @@ export const Info = () => {
         cart: cartSlice,
         priceTotal: cart.totalPrice(cartSlice),
       };
-      orderService.order(data).then(() => {
-        swal('Đặt hàng thành công');
-        dispatch(cartAction.setCart([]));
-        return history.push('/');
-      });
+      axios
+        .post(
+          'https://thegioitechcorsproxy.herokuapp.com/https://thegioitech-be.herokuapp.com/api/order/',
+          data
+        )
+        .then(() => {
+          swal('Đặt hàng thành công');
+          dispatch(cartAction.setCart([]));
+          return history.push('/');
+        });
     }
   }
   return (
@@ -63,6 +68,7 @@ export const Info = () => {
             <input
               name='Title'
               type='text'
+              defaultValue={user.firstName + ' ' + user.lastName}
               placeholder='Họ và tên '
               onChange={(event) => setName(event.target.value)}
             />
@@ -76,6 +82,7 @@ export const Info = () => {
               name='Phone'
               type='tel'
               placeholder='Số điện thoại '
+              defaultValue={user.phone}
               onChange={(event) => setPhone(event.target.value)}
             />
           </div>
@@ -88,6 +95,7 @@ export const Info = () => {
               name='Address'
               type='text'
               placeholder='Địa chỉ nhận hàng '
+              defaultValue={user.address}
               onChange={(event) => setAddress(event.target.value)}
             />
           </div>
@@ -100,6 +108,7 @@ export const Info = () => {
               name='Email'
               type='email'
               placeholder='Email'
+              defaultValue={user.email}
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
@@ -127,5 +136,3 @@ export const Info = () => {
     </form>
   );
 };
-
-

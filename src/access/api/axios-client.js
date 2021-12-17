@@ -1,11 +1,14 @@
-const { default: axios } = require('axios');
+import axios from 'axios';
+import { API } from '../../constant';
 
 const axiosClient = axios.create({
-  baseURL: 'https://thegioitech-be.herokuapp.com/api',
+  baseURL: API.DEVELOP,
   timeout: 15000,
 });
 
-axiosClient.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded';
+axiosClient.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest';
+axiosClient.defaults.headers.get['X-Requested-With'] = 'XMLHttpRequest';
+axiosClient.defaults.headers.put['X-Requested-With'] = 'XMLHttpRequest';
+axiosClient.defaults.headers.delete['X-Requested-With'] = 'XMLHttpRequest';
 
 export { axiosClient };

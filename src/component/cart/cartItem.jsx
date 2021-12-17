@@ -57,7 +57,7 @@ export const CartItem = ({ product }) => {
               <strong>Phiên bản</strong>
               <label>
                 <i className='icon-checked' />
-                <span>{option[0].value + option[0].unit}</span>
+                <span>{option[0].value}</span>
               </label>
             </div>
             <div className='option'>

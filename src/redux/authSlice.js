@@ -22,10 +22,8 @@ const authSlice = createSlice({
 });
 
 export const getUserToken = (state) => state.auth.user_token;
-export const getUserDecode = (state) => {
-  return state.auth.user_token !== null
-    ? jwt.decode(state.auth.user_token)
-    : null;
-};
+export const getUserDecode = (state) =>
+  state.auth.user_token !== null ? jwt.decode(state.auth.user_token) : null;
+
 export const authAction = authSlice.actions;
 export const authReducer = authSlice.reducer;

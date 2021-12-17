@@ -10,21 +10,25 @@ import { ProductSlider } from './product-slider';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 import './content-detail.scss';
 import { ProductSpecs } from './product-specs';
-import { productService } from '../../services';
+import { query } from '../../access/index';
 
 export const ContentDetail = ({ products }) => {
   const { slug } = useParams();
   const [product, setProduct] = useState();
   const [isArticleExpand, setIsArticleExpand] = useState(false);
 
-  useEffect(() => {
-    productService.getProductDetail(slug).then((payload) => {
-      setProduct(payload.product);
-    });
-  }, [slug]);
   const handleArticleAction = () => {
     setIsArticleExpand(!isArticleExpand);
   };
+
+  useEffect(() => {
+    (async () => {
+      const {
+        data: { product },
+      } = await query().product.getOne(slug);
+      setProduct(product);
+    })();
+  }, [slug]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -50,7 +54,7 @@ export const ContentDetail = ({ products }) => {
           <div
             className={isArticleExpand ? `article article-expand` : `article`}
           >
-            {parse(product.article)}
+            {product.article && parse(product.article)}
             <button
               onClick={handleArticleAction}
               type='button'

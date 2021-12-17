@@ -26,7 +26,7 @@ const Copyright = (props) => (
 const RegisterPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
     // const userRegisterData = {
     //   email: data.get('email'),
     //   password: data.get('password'),

@@ -4,9 +4,13 @@ export const query = () => ({
   product: {
     getAll: () => axiosClient.get('/product'),
     getFilter: (filter) =>
-      filter === undefined ? null : axiosClient.get('/product/filter' + filter),
+      filter === undefined
+        ? null
+        : axiosClient.get('/product/filter?' + filter),
     getOne: (id) =>
-      id === undefined ? null : axiosClient.get('/product' + id),
+      id === undefined ? null : axiosClient.get('/product/' + id),
+    getSearch: (query) =>
+      query === undefined ? null : axiosClient.get('/product/search/' + query),
   },
   category: {
     getAll: () => axiosClient.get('/category'),
@@ -20,5 +24,13 @@ export const query = () => ({
       payload === undefined ? null : axiosClient.post('/auth/login', payload),
     register: (payload) =>
       payload === undefined ? null : axiosClient.post('/register', payload),
+  },
+  comment: {
+    getListByProductId: (productId) =>
+      productId === undefined ? null : axiosClient.get('/comment/' + productId),
+    add: (productId, payload) =>
+      productId === undefined
+        ? null
+        : axiosClient.post('/comment/' + productId, payload),
   },
 });

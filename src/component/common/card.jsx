@@ -45,20 +45,25 @@ export const Card = (props) => {
               </span>
             </div>
             <div className='card-content-action-box'>
-              <button
-                type='button'
-                onClick={handleBuyNow}
+              <Link
                 className='btn card-content-action-buy'
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  lineHeight: '30px',
+                  backgroundColor: '#fafafa',
+                }}
+                to={cardUrl}
               >
-                Mua ngay
-              </button>
-              <button
+                Xem chi tiết
+              </Link>
+              {/* <button
                 onClick={handleAddToCard}
                 type='button'
                 className='btn card-content-action-add'
               >
                 <FontAwesomeIcon icon={faCartPlus} />
-              </button>
+              </button> */}
             </div>
           </div>
         </>

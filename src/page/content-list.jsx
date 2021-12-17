@@ -1,10 +1,12 @@
-import { Footer, Header } from '../component';
+import { ContentList, Footer, Header } from '../component';
 
 const ContentListPage = (props) => {
   return (
     <>
       <Header />
-      <main className='main-global-wrap'></main>
+      <main className='main-global-wrap'>
+        <ContentList />
+      </main>
       <Footer />
     </>
   );

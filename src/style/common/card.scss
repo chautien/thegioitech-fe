@@ -27,9 +27,12 @@
     border-top-right-radius: var(--border-radius-circle);
     border-bottom-right-radius: var(--border-radius-circle);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    z-index: 20;
   }
 
   &-heading {
+    margin-bottom: 1rem;
+
     &-link {
       display: block;
       height: 20rem;
@@ -51,6 +54,15 @@
       margin-bottom: 1rem;
       font-size: var(--font-size-text-l);
       font-weight: 800;
+
+      &-link {
+        height: 6.4rem;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        text-overflow: ellipsis;
+      }
     }
 
     &-price-box {

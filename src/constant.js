@@ -721,3 +721,15 @@ export const Mock_products = [
     <p>Thật kh&ocirc;ng d&aacute;m tưởng tượng, sẽ ra sao nếu như cả GPU, ổ cứng, thiết bị lưu trữ đều gặp khủng hoảng. Người d&ugrave;ng sẽ ng&agrave;y c&agrave;ng khốn đốn, c&ograve;n thợ đ&agrave;o th&igrave; ng&agrave;y c&agrave;ng được m&ugrave;a. Đại dịch đ&atilde; l&agrave;m ảnh hưởng đến d&acirc;y chuyền sản xuất to&agrave;n cầu, cộng th&ecirc;m sự b&agrave;nh trướng của đế chế tiền ảo, kh&ocirc;ng biết đến bao giờ phần cứng m&aacute;y t&iacute;nh mới trở về đ&uacute;ng với nơi m&agrave; n&oacute; n&ecirc;n thuộc về, v&agrave; người d&ugrave;ng sẽ lại được mua ch&uacute;ng đ&uacute;ng với mức gi&aacute; ban đầu. Điều n&agrave;y chỉ c&oacute; thời gian mới c&oacute; thể trả lời&hellip;</p>`,
   },
 ];
+
+export const CATEGORIES = [
+  ['dien-thoai', '612edf88d6e79a0a359f4788'],
+  ['may-tinh-bang', '612ee046d6e79a0a359f4789'],
+  ['laptop', '612ee074d6e79a0a359f478a'],
+];
+
+export const API = {
+  PRODUCT: 'https://thegioitech-be.herokuapp.com/api',
+  DEVELOP: 'http://localhost:3080/api',
+  CORS_PROXY: 'https://thegioitechcorsproxy.herokuapp.com/',
+};

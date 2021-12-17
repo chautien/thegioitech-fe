@@ -1,9 +1,10 @@
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getUserDecode } from '../../redux/authSlice';
+import { query } from '../../access';
+import moment from 'moment';
 
 export const Comment = (props) => {
   const { productId, name } = props;
@@ -14,12 +15,11 @@ export const Comment = (props) => {
     let isCancelling = false;
     (async () => {
       try {
-        const { data: apiComment } = await axios.get(
-          'http://localhost:3080/api/comment/' + productId
-        );
-
+        const {
+          data: { productComment },
+        } = await query().comment.getListByProductId(productId);
         if (isCancelling === false) {
-          setComment(apiComment.productComment);
+          setComment(productComment);
         }
       } catch (error) {}
     })();
@@ -63,7 +63,7 @@ export const Comment = (props) => {
             ></textarea>
           </div>
           <div className='comment-form-action'>
-            <p className='comment-form-action-text'>
+            <div className='comment-form-action-text'>
               <p>
                 * Để gửi bình luận, bạn cần nhập tối thiểu trường họ tên và nội
                 dung
@@ -73,7 +73,7 @@ export const Comment = (props) => {
                   * Bạn cần đăng nhập để bình luận!
                 </p>
               )}
-            </p>
+            </div>
             <button
               type={userInfo === null ? 'button' : 'submit'}
               className='btn comment-form-action-btn'
@@ -86,8 +86,8 @@ export const Comment = (props) => {
         </form>
         <div className='comment-list'>
           {comment.length > 0 ? (
-            comment.map((item) => (
-              <div className='comment-list-item'>
+            comment.map(({ _id, content, user, updatedAt }) => (
+              <div key={_id} className='comment-list-item'>
                 <div className='comment-item-media'>
                   <img
                     src={'https://hoanghamobile.com/Content/web/img/no-avt.png'}
@@ -98,10 +98,14 @@ export const Comment = (props) => {
                 <div className='comment-item-content'>
                   <div className='comment-item-detail'>
                     <div className='comment-detail-heading'>
-                      <p className='comment-detail-heading-text'>Chau Tien</p>
-                      <time className='comment-detail-time'>15 phút trước</time>
+                      <p className='comment-detail-heading-text'>
+                        {user.firstName + ' ' + user.lastName}
+                      </p>
+                      <time className='comment-detail-time'>
+                        {moment(updatedAt).fromNow()}
+                      </time>
                     </div>
-                    <p className='comment-detail-text'>{item.content}</p>
+                    <p className='comment-detail-text'>{content}</p>
                   </div>
                 </div>
               </div>
