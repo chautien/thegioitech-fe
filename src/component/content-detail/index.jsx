@@ -12,6 +12,7 @@ import './content-detail.scss';
 import { ProductSpecs } from './product-specs';
 import { query } from '../../access/index';
 import QueryString from 'qs';
+import { axiosClient } from '../../access/api/axios-client';
 
 export const ContentDetail = () => {
   const { slug } = useParams();
@@ -55,6 +56,20 @@ export const ContentDetail = () => {
       };
     })();
   }, [product]);
+
+  useEffect(() => {
+    let isCancelling = null;
+    (async () => {
+      try {
+        isCancelling = setTimeout(async () => {
+          await axiosClient.get('/product/update-view/' + slug);
+        }, 4000);
+      } catch (error) {}
+      return () => {
+        clearTimeout(isCancelling);
+      };
+    })();
+  }, [slug]);
 
   return product ? (
     <main className='content-wrap'>
