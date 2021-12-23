@@ -28,7 +28,7 @@ export const ProductSlider = (props) => {
           >
             {images?.map((image, index) => (
               <SwiperSlide key={index} className='slider-top-box'>
-                <img src={image} alt={index} className='slider-top-image' />
+                <img src={image.location} alt={index} className='slider-top-image' />
               </SwiperSlide>
             ))}
             <button
@@ -59,7 +59,7 @@ export const ProductSlider = (props) => {
               <SwiperSlide key={index} className='slider-bottom-box'>
                 {({ isActive }) => (
                   <img
-                    src={image}
+                    src={image.location}
                     alt={index}
                     className={`slider-bottom-image ${
                       isActive ? 'slider-active' : ''

@@ -1,31 +1,41 @@
 import { faCartPlus, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { formatCurrency, discountPrice } from '../../util';
+import { Link, useHistory } from 'react-router-dom';
+import { discountPrice } from '../../util';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartAction } from '../../redux/cartSlice';
+import { getUserDecode } from '../../redux/authSlice';
+import swal from 'sweetalert';
 
 export const ProductBox = (props) => {
   const { product } = props;
-  const {
-    _id,
-    name,
-    option,
-    color,
-    discount,
-    flash_sale,
-    thumbnail,
-    product_image,
-    specification,
-  } = product;
+  const { option, discount } = product;
+  const dispatch = useDispatch();
+  const userInfo = useSelector(getUserDecode);
+  const history = useHistory();
+
+  const addCart = () => {
+    if (userInfo === null) {
+      history.push('/login');
+      return null;
+    }
+    dispatch(cartAction.addCart(product));
+    swal('thêm vào giỏ hàng thành công');
+  };
+  const handleBuynowClick = () => {
+    if (userInfo === null) return null;
+    dispatch(cartAction.addCart(product));
+  };
 
   return (
     <section className='product-box'>
       <div className='heading'>
         <div className='heading-price'>
           <h5 className='heading-price-new'>
-            {formatCurrency(option[0].price)}
+            {discountPrice(option[0].price, discount)}
           </h5>
           <h5 className='heading-price-old'>
-            Giá niêm yết:{' '}
-            <strike>{discountPrice(option[0].price, discount)}</strike>
+            Giá niêm yết: <strike>{discountPrice(option[0].price)}</strike>
           </h5>
         </div>
         <div className='heading-freeship'>
@@ -58,10 +68,15 @@ export const ProductBox = (props) => {
         </div>
         <div className='heading-action'>
           <button className='btn heading-action-buy'>
-            <span>Mua ngay</span>
-            <span>Giao hàng tận nhà (COD) hoặc nhận tại cửa hàng</span>
+            <Link
+              to={userInfo === null ? '/login' : '/cart'}
+              onClick={handleBuynowClick}
+            >
+              <span>Mua ngay</span>
+              <span>Giao hàng tận nhà (COD) hoặc nhận tại cửa hàng</span>
+            </Link>
           </button>
-          <button className='btn heading-action-add'>
+          <button className='btn heading-action-add' onClick={() => addCart()}>
             <FontAwesomeIcon icon={faCartPlus} />
           </button>
         </div>

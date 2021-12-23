@@ -26,8 +26,8 @@ export const HeroSlider = ({ sliders }) => {
             autoplay={{ delay: 5000 }}
             className='hero-slider-top'
           >
-            {sliders?.map(({ image, text }) => (
-              <SwiperSlide className='hero-slider-item'>
+            {sliders?.map(({ image, text }, index) => (
+              <SwiperSlide key={index} className='hero-slider-item'>
                 <Link to={'/'} className='hero-slider-link'>
                   <img src={image} alt={text} className='hero-slider-image' />
                 </Link>
@@ -57,8 +57,8 @@ export const HeroSlider = ({ sliders }) => {
             spaceBetween={10}
             className='hero-slider-bottom'
           >
-            {sliders?.map(({ text }) => (
-              <SwiperSlide className='hero-slider-item-content'>
+            {sliders?.map(({ text }, index) => (
+              <SwiperSlide key={index} className='hero-slider-item-content'>
                 {({ isActive }) => (
                   <Link
                     to={'/'}

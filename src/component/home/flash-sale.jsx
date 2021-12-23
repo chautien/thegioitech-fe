@@ -4,20 +4,35 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { query } from '../../access';
 import { discountPrice, formatCurrency, slugify } from '../../util';
 import 'swiper/swiper.scss';
 
-import { Mock_products } from '../../constant';
-
 export const FlashSale = () => {
-  const [flashSaleProducts] = useState(() =>
-    Mock_products.filter((product) => product.flash_sale === true)
-  );
+  const [flashSaleProducts, setFlashSaleProducts] = useState([]);
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
+
+  useEffect(() => {
+    let isCancelling = false;
+    (async () => {
+      const {
+        data: { products },
+      } = await query().product.getAll();
+      const saleProducts = products.filter(
+        (entity) => entity.flash_sale === true
+      );
+      if (isCancelling === false) {
+        setFlashSaleProducts(saleProducts);
+      }
+    })();
+    return () => {
+      isCancelling = true;
+    };
+  }, []);
 
   return (
     <section className='container flashsale-wrap'>
@@ -42,12 +57,12 @@ export const FlashSale = () => {
               className='slider-container'
             >
               {flashSaleProducts?.map(
-                ({ thumbnail, name, option, discount }) => (
-                  <SwiperSlide className='slider-card'>
+                ({ thumbnail, name, option, discount, _id }, index) => (
+                  <SwiperSlide key={index} className='slider-card'>
                     <div className='slider-card-heading'>
-                      <Link to={'/'} className='slider-card-link'>
+                      <Link to={`/product/${_id}`} className='slider-card-link'>
                         <img
-                          src={thumbnail}
+                          src={thumbnail.location}
                           alt={slugify(name)}
                           className='slider-card-image'
                         />
@@ -55,7 +70,12 @@ export const FlashSale = () => {
                     </div>
                     <div className='slider-card-content'>
                       <h5 className='slider-card-name'>
-                        <Link className='slider-card-content-link'>{name}</Link>
+                        <Link
+                          to={`/product/${_id}`}
+                          className='slider-card-content-link'
+                        >
+                          {name}
+                        </Link>
                       </h5>
                       <div className='slider-card-price-box'>
                         <span className='slider-card-price new'>

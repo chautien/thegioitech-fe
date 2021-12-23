@@ -1,10 +1,12 @@
-import { Footer, Header } from '../component';
+import { Cart, Footer, Header } from '../component';
 
 const CartPage = () => {
   return (
     <>
       <Header />
-      <main className='main-global-wrap'></main>
+      <main className='main-global-wrap'>
+        <Cart />
+      </main>
       <Footer />
     </>
   );

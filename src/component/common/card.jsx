@@ -1,5 +1,4 @@
 import { Link, useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { discountPrice, formatCurrency } from '../../util';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
@@ -7,15 +6,12 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 export const Card = (props) => {
   const { data, loading } = props;
   // eslint-disable-next-line no-unused-vars
-  const { slug, _id, thumbnail, name, option, discount } = data;
+  const { slug, _id, product_image, name, option, discount } = data;
   const history = useHistory();
-  const cardUrl = `${_id}`;
+  const cardUrl = `/product/${_id}`;
 
-  const handleAddToCard = () => {
-    console.log('Add to card!');
-  };
+  const handleAddToCard = () => {};
   const handleBuyNow = () => {
-    console.log('Buy now!');
     history.push('/card');
   };
 
@@ -27,7 +23,11 @@ export const Card = (props) => {
           {discount && <span className='card-label'>Giảm {discount}%</span>}
           <div className='card-heading'>
             <Link to={cardUrl} className='card-heading-link'>
-              <img src={thumbnail} alt={name} className='card-heading-image' />
+              <img
+                src={product_image[0].location}
+                alt={name}
+                className='card-heading-image'
+              />
             </Link>
           </div>
           <div className='card-content'>
@@ -45,33 +45,29 @@ export const Card = (props) => {
               </span>
             </div>
             <div className='card-content-action-box'>
-              <button
-                type='button'
-                onClick={handleBuyNow}
+              <Link
                 className='btn card-content-action-buy'
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  lineHeight: '30px',
+                  backgroundColor: '#fafafa',
+                }}
+                to={cardUrl}
               >
-                Mua ngay
-              </button>
-              <button
+                Xem chi tiết
+              </Link>
+              {/* <button
                 onClick={handleAddToCard}
                 type='button'
                 className='btn card-content-action-add'
               >
                 <FontAwesomeIcon icon={faCartPlus} />
-              </button>
+              </button> */}
             </div>
           </div>
         </>
       )}
     </article>
   );
-};
-
-Card.propTypes = {
-  data: PropTypes.array,
-  path: PropTypes.string,
-};
-Card.defaultProps = {
-  data: [],
-  path: '',
 };

@@ -7,3 +7,4 @@ export * from './layout';
 export * from './login';
 export * from './order-check';
 export * from './register';
+export * from './user-info';

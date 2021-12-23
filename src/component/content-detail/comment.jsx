@@ -1,8 +1,59 @@
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faReply } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getUserDecode } from '../../redux/authSlice';
+import { query } from '../../access';
+import { axiosClient } from '../../access/api/axios-client';
+import { CommentItem } from './comment-item';
 
 export const Comment = (props) => {
-  const { product_id, name } = props;
+  const { productId, name } = props;
+  const [comment, setComment] = useState([]);
+  const [update, setUpdate] = useState({ value: 1 });
+  const userInfo = useSelector(getUserDecode);
+  const commentRef = useRef(null);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const comment = {
+      content: commentRef.current.value,
+      user: userInfo._id,
+      product: productId,
+    };
+    console.log(
+      '🚀 ~ file: comment.jsx ~ line 22 ~ handleFormSubmit ~ comment',
+      comment
+    );
+    try {
+      await axiosClient.post('/comment/add', comment);
+      setUpdate((state) => ({ value: state.value + 1 }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRefresh = () => {
+    setUpdate((state) => ({ value: state.value + 1 }));
+  };
+
+  useEffect(() => {
+    let isCancelling = false;
+    (async () => {
+      try {
+        const {
+          data: { productComment },
+        } = await query().comment.getListByProductId(productId);
+        if (isCancelling === false) {
+          setComment(productComment);
+        }
+      } catch (error) {}
+    })();
+
+    return () => {
+      isCancelling = true;
+    };
+  }, [productId, update.value]);
 
   return (
     <section className='comment-wrap'>
@@ -10,111 +61,43 @@ export const Comment = (props) => {
         <div className='comment-heading'>
           <h5 className='comment-heading-text'>Bình luận về {name}</h5>
         </div>
-        <form className='comment-form'>
-          <div className='form-field-top'>
-            <input
-              type='text'
-              placeholder='Họ tên *'
-              required
-              className='comment-form-input'
-            />
-            <input
-              type='text'
-              placeholder='Điện thoại'
-              className='comment-form-input'
-            />
-            <input
-              type='text'
-              placeholder='Email'
-              className='comment-form-input'
-            />
-          </div>
+        <form className='comment-form' onSubmit={handleFormSubmit}>
           <div className='form-field-bottom'>
             <textarea
               placeholder='Nội dung. Tối thiểu 15 ký tự'
               required
               minLength='15'
               className='comment-form-area'
+              ref={commentRef}
             ></textarea>
           </div>
           <div className='comment-form-action'>
-            <p className='comment-form-action-text'>
-              * Để gửi bình luận, bạn cần nhập tối thiểu trường họ tên và nội
-              dung
-            </p>
-            <button type='submit' className='btn comment-form-action-btn'>
+            <div className='comment-form-action-text'>
+              <p>* Để gửi bình luận, bạn cần nhập tối thiểu 15 ký tự.</p>
+              {userInfo === null && (
+                <p style={{ color: '#fd475a' }}>
+                  * Bạn cần đăng nhập để bình luận!
+                </p>
+              )}
+            </div>
+            <button
+              type={userInfo === null ? 'button' : 'submit'}
+              className='btn comment-form-action-btn'
+              style={{ cursor: userInfo === null ? 'no-drop' : 'pointer' }}
+            >
               <FontAwesomeIcon icon={faPaperPlane} />
               <span>Gửi bình luận</span>
             </button>
           </div>
         </form>
         <div className='comment-list'>
-          <div className='comment-list-item'>
-            <div className='comment-item-media'>
-              <img
-                src={'https://hoanghamobile.com/Content/web/img/no-avt.png'}
-                alt='No avatar'
-                className='rounded-circle comment-item-img'
-              />
-            </div>
-            <div className='comment-item-content'>
-              <div className='comment-item-detail'>
-                <div className='comment-detail-heading'>
-                  <p className='comment-detail-heading-text'>Chau Tien</p>
-                  <time className='comment-detail-time'>15 phút trước</time>
-                </div>
-                <p className='comment-detail-text'>
-                  Mình thấy có mấy chương trình Km, KH được chọn 1 hay được
-                  hưởng tất cả? Mình có đặt đơn online rồi mà chưa thấy ai liên
-                  hệ lại.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className='comment-list-item'>
-            <div className='comment-item-media'>
-              <img
-                src={'https://hoanghamobile.com/Content/web/img/no-avt.png'}
-                alt='No avatar'
-                className='rounded-circle comment-item-img'
-              />
-            </div>
-            <div className='comment-item-content'>
-              <div className='comment-item-detail'>
-                <div className='comment-detail-heading'>
-                  <p className='comment-detail-heading-text'>Chau Tien</p>
-                  <time className='comment-detail-time'>15 phút trước</time>
-                </div>
-                <p className='comment-detail-text'>
-                  Mình thấy có mấy chương trình Km, KH được chọn 1 hay được
-                  hưởng tất cả? Mình có đặt đơn online rồi mà chưa thấy ai liên
-                  hệ lại.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className='comment-list-item'>
-            <div className='comment-item-media'>
-              <img
-                src={'https://hoanghamobile.com/Content/web/img/no-avt.png'}
-                alt='No avatar'
-                className='rounded-circle comment-item-img'
-              />
-            </div>
-            <div className='comment-item-content'>
-              <div className='comment-item-detail'>
-                <div className='comment-detail-heading'>
-                  <p className='comment-detail-heading-text'>Chau Tien</p>
-                  <time className='comment-detail-time'>15 phút trước</time>
-                </div>
-                <p className='comment-detail-text'>
-                  Mình thấy có mấy chương trình Km, KH được chọn 1 hay được
-                  hưởng tất cả? Mình có đặt đơn online rồi mà chưa thấy ai liên
-                  hệ lại.
-                </p>
-              </div>
-            </div>
-          </div>
+          {comment.length > 0 ? (
+            comment.map((item) => (
+              <CommentItem key={item._id} {...item} onRefesh={handleRefresh} />
+            ))
+          ) : (
+            <p style={{ textAlign: 'center' }}>Chưa có bình luận!</p>
+          )}
         </div>
       </div>
     </section>

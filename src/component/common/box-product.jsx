@@ -22,6 +22,12 @@ export const BoxProduct = (props) => {
                 }
                 return null;
               })}
+            {(products === undefined || products?.length === 0) && (
+              <div className='error-wrap'>
+                <p className='error-message'>Chưa có sản phẩm</p>
+              </div>
+            )}
+            {console.log(products)}
           </div>
         </section>
       </div>

@@ -1,13 +1,12 @@
-import { Footer, Header } from '../component';
-import { getQueryString } from '../util';
+import { ContentList, Footer, Header } from '../component';
 
 const ContentListPage = (props) => {
-  console.log(getQueryString(props.location));
-
   return (
     <>
       <Header />
-      <main className='main-global-wrap'></main>
+      <main className='main-global-wrap'>
+        <ContentList />
+      </main>
       <Footer />
     </>
   );

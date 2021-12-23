@@ -1,9 +1,12 @@
-import { useState } from 'react';
-import { HeroSlider } from './hero-slider';
-import { FlashSale } from './flash-sale';
-import './home.scss';
-import { Mock_products } from '../../constant';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { BoxProduct } from '../common/box-product';
+import { FlashSale } from './flash-sale';
+import { HeroSlider } from './hero-slider';
+import { query } from '../../access';
+import { CATEGORIES } from '../../constant';
+import './home.scss';
+import qs from 'qs';
 
 const Mock_Slider = [
   {
@@ -34,24 +37,75 @@ const Mock_Slider = [
 ];
 
 export const Home = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [products, setProducts] = useState(() => [...Mock_products]);
+  const [phone, setPhone] = useState([]);
+  const [tablet, setTablet] = useState([]);
+  const [laptop, setLaptop] = useState([]);
   const [sliders] = useState([...Mock_Slider]);
+
+  useEffect(() => {
+    let isCancelling = false;
+    query()
+      .product.getFilter(qs.stringify({ category: CATEGORIES[0][1] }))
+      .then((res) => {
+        const myPhone = res.data;
+        if (isCancelling === false) {
+          setPhone(myPhone);
+        }
+      })
+      .catch((err) => {});
+    return () => {
+      isCancelling = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let isCancelling = false;
+    query()
+      .product.getFilter(qs.stringify({ category: CATEGORIES[1][1] }))
+      .then((res) => {
+        const myPhone = res.data;
+        if (isCancelling === false) {
+          setTablet(myPhone);
+        }
+      })
+      .catch((err) => {});
+    return () => {
+      isCancelling = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let isCancelling = false;
+    query()
+      .product.getFilter(qs.stringify({ category: CATEGORIES[2][1] }))
+      .then((res) => {
+        const myLaptop = res.data;
+        if (isCancelling === false) {
+          setLaptop(myLaptop);
+        }
+      })
+      .catch((err) => {});
+    return () => {
+      isCancelling = true;
+    };
+  }, []);
+
   return (
     <main className='home-global-wrap'>
       <HeroSlider sliders={sliders} />
       <FlashSale />
       <BoxProduct
         name='Điện thoại nổi bật nhất'
-        products={products}
+        products={phone}
         loading={false}
         numberOfItem={10}
         className='trending'
         to='category/dien-thoai'
       />
+
       <BoxProduct
         name='Laptop'
-        products={products}
+        products={tablet}
         loading={false}
         numberOfItem={5}
         className='trending'
@@ -59,7 +113,7 @@ export const Home = () => {
       />
       <BoxProduct
         name='Máy tính bảng'
-        products={products}
+        products={laptop}
         loading={false}
         numberOfItem={5}
         className='trending'
