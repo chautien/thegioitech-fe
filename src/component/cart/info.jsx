@@ -68,7 +68,6 @@ export const Info = () => {
             <input
               name='Title'
               type='text'
-              defaultValue={user.firstName + ' ' + user.lastName}
               placeholder='Họ và tên '
               onChange={(event) => setName(event.target.value)}
             />
@@ -82,7 +81,6 @@ export const Info = () => {
               name='Phone'
               type='tel'
               placeholder='Số điện thoại '
-              defaultValue={user.phone}
               onChange={(event) => setPhone(event.target.value)}
             />
           </div>
@@ -95,7 +93,6 @@ export const Info = () => {
               name='Address'
               type='text'
               placeholder='Địa chỉ nhận hàng '
-              defaultValue={user.address}
               onChange={(event) => setAddress(event.target.value)}
             />
           </div>
@@ -108,7 +105,6 @@ export const Info = () => {
               name='Email'
               type='email'
               placeholder='Email'
-              defaultValue={user.email}
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>

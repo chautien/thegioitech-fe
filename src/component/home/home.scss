@@ -166,6 +166,19 @@
     border-radius: var(--border-radius-l);
     transition: all .15s linear;
 
+    &-link {
+      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 1rem 0;
+    }
+
+    &-content-link {
+      display: block;
+      height: 6rem;
+    }
+
     &:hover {
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       transform: translateY(-.4rem);

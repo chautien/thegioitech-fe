@@ -1,15 +1,41 @@
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faReply } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getUserDecode } from '../../redux/authSlice';
 import { query } from '../../access';
-import moment from 'moment';
+import { axiosClient } from '../../access/api/axios-client';
+import { CommentItem } from './comment-item';
 
 export const Comment = (props) => {
   const { productId, name } = props;
   const [comment, setComment] = useState([]);
+  const [update, setUpdate] = useState({ value: 1 });
   const userInfo = useSelector(getUserDecode);
+  const commentRef = useRef(null);
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const comment = {
+      content: commentRef.current.value,
+      user: userInfo._id,
+      product: productId,
+    };
+    console.log(
+      '🚀 ~ file: comment.jsx ~ line 22 ~ handleFormSubmit ~ comment',
+      comment
+    );
+    try {
+      await axiosClient.post('/comment/add', comment);
+      setUpdate((state) => ({ value: state.value + 1 }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRefresh = () => {
+    setUpdate((state) => ({ value: state.value + 1 }));
+  };
 
   useEffect(() => {
     let isCancelling = false;
@@ -27,7 +53,7 @@ export const Comment = (props) => {
     return () => {
       isCancelling = true;
     };
-  }, [productId]);
+  }, [productId, update.value]);
 
   return (
     <section className='comment-wrap'>
@@ -35,39 +61,19 @@ export const Comment = (props) => {
         <div className='comment-heading'>
           <h5 className='comment-heading-text'>Bình luận về {name}</h5>
         </div>
-        <form className='comment-form'>
-          <div className='form-field-top'>
-            <input
-              type='text'
-              placeholder='Họ tên *'
-              required
-              className='comment-form-input'
-            />
-            <input
-              type='text'
-              placeholder='Điện thoại'
-              className='comment-form-input'
-            />
-            <input
-              type='text'
-              placeholder='Email'
-              className='comment-form-input'
-            />
-          </div>
+        <form className='comment-form' onSubmit={handleFormSubmit}>
           <div className='form-field-bottom'>
             <textarea
               placeholder='Nội dung. Tối thiểu 15 ký tự'
               required
               minLength='15'
               className='comment-form-area'
+              ref={commentRef}
             ></textarea>
           </div>
           <div className='comment-form-action'>
             <div className='comment-form-action-text'>
-              <p>
-                * Để gửi bình luận, bạn cần nhập tối thiểu trường họ tên và nội
-                dung
-              </p>
+              <p>* Để gửi bình luận, bạn cần nhập tối thiểu 15 ký tự.</p>
               {userInfo === null && (
                 <p style={{ color: '#fd475a' }}>
                   * Bạn cần đăng nhập để bình luận!
@@ -86,29 +92,8 @@ export const Comment = (props) => {
         </form>
         <div className='comment-list'>
           {comment.length > 0 ? (
-            comment.map(({ _id, content, user, updatedAt }) => (
-              <div key={_id} className='comment-list-item'>
-                <div className='comment-item-media'>
-                  <img
-                    src={'https://hoanghamobile.com/Content/web/img/no-avt.png'}
-                    alt='No avatar'
-                    className='rounded-circle comment-item-img'
-                  />
-                </div>
-                <div className='comment-item-content'>
-                  <div className='comment-item-detail'>
-                    <div className='comment-detail-heading'>
-                      <p className='comment-detail-heading-text'>
-                        {user.firstName + ' ' + user.lastName}
-                      </p>
-                      <time className='comment-detail-time'>
-                        {moment(updatedAt).fromNow()}
-                      </time>
-                    </div>
-                    <p className='comment-detail-text'>{content}</p>
-                  </div>
-                </div>
-              </div>
+            comment.map((item) => (
+              <CommentItem key={item._id} {...item} onRefesh={handleRefresh} />
             ))
           ) : (
             <p style={{ textAlign: 'center' }}>Chưa có bình luận!</p>

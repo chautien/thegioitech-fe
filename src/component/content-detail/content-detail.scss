@@ -575,8 +575,8 @@
       padding: 2rem 4rem;
 
       &-item {
-        display: flex;
-        align-items: flex-start;
+        display: grid;
+        grid-template-columns: 6rem 1fr 4rem;
         gap: 2rem;
         margin-bottom: 2.4rem;
       }
@@ -620,4 +620,51 @@
       }
     }
   }
+}
+
+.comment-action {
+  margin-left: auto;
+  flex-shrink: 0;
+  margin-top: auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.comment-reply-input {
+  display: none;
+  grid-column: 2/span 1;
+  padding: 1rem;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid gainsboro;
+}
+
+.comment-reply-btn {
+  display: none;
+  background-color: var(--color-primary-lighter);
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.reply-error {
+  grid-column: 2/ span 1;
+  color: var(--color-tertiary);
+}
+
+.reply-comment-list {
+  grid-column: 2/ span 1;
+}
+
+.comment-manager {
+  display: inline-block;
+  margin-left: 1rem;
+  background-color: var(--color-primary-lighter);
+  padding: 0 .4rem;
+  border-radius: .4rem;
+  color: #fff;
 }

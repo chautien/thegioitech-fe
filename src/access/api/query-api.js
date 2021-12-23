@@ -28,9 +28,7 @@ export const query = () => ({
   comment: {
     getListByProductId: (productId) =>
       productId === undefined ? null : axiosClient.get('/comment/' + productId),
-    add: (productId, payload) =>
-      productId === undefined
-        ? null
-        : axiosClient.post('/comment/' + productId, payload),
+    add: (payload) =>
+      payload === undefined ? null : axiosClient.post('/comment/add', payload),
   },
 });

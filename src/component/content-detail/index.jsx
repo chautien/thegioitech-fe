@@ -11,11 +11,13 @@ import { faGear } from '@fortawesome/free-solid-svg-icons';
 import './content-detail.scss';
 import { ProductSpecs } from './product-specs';
 import { query } from '../../access/index';
+import QueryString from 'qs';
 
-export const ContentDetail = ({ products }) => {
+export const ContentDetail = () => {
   const { slug } = useParams();
   const [product, setProduct] = useState();
   const [isArticleExpand, setIsArticleExpand] = useState(false);
+  const [relateProduct, setRelateProduct] = useState([]);
 
   const handleArticleAction = () => {
     setIsArticleExpand(!isArticleExpand);
@@ -32,6 +34,26 @@ export const ContentDetail = ({ products }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [product]);
+
+  useEffect(() => {
+    let isCancelling = false;
+    (async () => {
+      try {
+        const { data } = await query().product.getFilter(
+          QueryString.stringify({
+            category: product.category,
+            brand: product.brand,
+          })
+        );
+        setRelateProduct(data);
+        if (isCancelling === false) {
+        }
+      } catch (error) {}
+      return () => {
+        isCancelling = true;
+      };
+    })();
   }, [product]);
 
   return product ? (
@@ -87,7 +109,7 @@ export const ContentDetail = ({ products }) => {
         </section>
         <BoxProduct
           name='Sản phẩm tương tự'
-          products={products}
+          products={relateProduct}
           loading={false}
           numberOfItem={5}
           className='product-relate'
